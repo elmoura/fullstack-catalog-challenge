@@ -6,9 +6,10 @@ const deleteProductUseCase = container.get(DeleteProductUseCase);
 
 type Params = {
   productId: string;
+  onSuccess?: () => void;
 };
 
-export const useDeleteProduct = ({ productId }: Params) => {
+export const useDeleteProduct = ({ productId, onSuccess }: Params) => {
   if (!productId) {
     throw new Error(
       "productId not provided. productId is required for useDeleteProduct hook."
@@ -23,6 +24,7 @@ export const useDeleteProduct = ({ productId }: Params) => {
     mutationFn: async (data) => {
       await deleteProductUseCase.execute(data.productId);
     },
+    onSuccess,
   });
 
   return { mutate, data, error, isLoading };

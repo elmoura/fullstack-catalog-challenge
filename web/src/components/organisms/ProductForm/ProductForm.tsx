@@ -1,4 +1,4 @@
-import { FunctionComponent, useEffect } from "react";
+import { FunctionComponent } from "react";
 import { IProduct } from "@core/products/entities/Product";
 import { CreateProductInput } from "@core/products/usecases/dto/CreateProductInput";
 import { useCreateProduct } from "@application/api/products/hooks/useCreateProduct";
@@ -17,21 +17,14 @@ export const ProductForm: FunctionComponent<Props> = ({
   onSubmit,
 }) => {
   const { handleSubmit, control } = useProductForm();
-  const {
-    mutate: createProduct,
-    data: createdProduct,
-    isLoading: isLoadingCreation,
-  } = useCreateProduct();
-  const {
-    mutate: updateProduct,
-    data: updatedProduct,
-    isLoading: isLoadingUpdate,
-  } = useUpdateProduct();
-
-  useEffect(() => {
-    if (createdProduct) setTimeout(() => onSubmit(createdProduct), 100);
-    if (updatedProduct) setTimeout(() => onSubmit(updatedProduct), 100);
-  }, [onSubmit, createdProduct, updatedProduct]);
+  const { mutate: createProduct, isLoading: isLoadingCreation } =
+    useCreateProduct({
+      onSuccess: (createdProduct) => onSubmit(createdProduct),
+    });
+  const { mutate: updateProduct, isLoading: isLoadingUpdate } =
+    useUpdateProduct({
+      onSuccess: (updatedProduct) => onSubmit(updatedProduct),
+    });
 
   const onFormSubmission = async (formData: CreateProductInput) => {
     if (product) {
@@ -67,7 +60,7 @@ export const ProductForm: FunctionComponent<Props> = ({
         required
         type="number"
         label="Preço"
-        maxLength={6}
+        maxLength={9}
         placeholder="19.90"
         controllerProps={{
           control,

@@ -6,12 +6,17 @@ import { useBaseMutation } from "@utils/hooks/useBaseMutation";
 
 const createProductUseCase = container.get(CreateProductUseCase);
 
-export const useCreateProduct = () => {
+type Params = {
+  onSuccess?: (data: IProduct) => void;
+};
+
+export const useCreateProduct = ({ onSuccess }: Params) => {
   const { data, error, isLoading, mutate } = useBaseMutation<
     IProduct,
     Error,
     CreateProductInput
   >({
+    onSuccess,
     mutationFn: async (mutationData) => {
       return createProductUseCase.execute(mutationData);
     },

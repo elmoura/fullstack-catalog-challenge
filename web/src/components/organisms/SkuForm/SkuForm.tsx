@@ -23,9 +23,10 @@ export const SkuForm: FunctionComponent<Props> = ({
 }) => {
   const { control, handleSubmit } = useCreateSkuForm();
   const { mutate: createSku, isLoading: isLoadingProductCreation } =
-    useCreateSku();
-  const { mutate: updateSku, isLoading: isLoadingProductUpdate } =
-    useUpdateSku();
+    useCreateSku({ onSuccess: () => onSubmit() });
+  const { mutate: updateSku, isLoading: isLoadingProductUpdate } = useUpdateSku(
+    { onSuccess: () => onSubmit() }
+  );
 
   const onFormSubmission = (data: CreateSkuForm) => {
     if (sku?._id) {
@@ -37,7 +38,6 @@ export const SkuForm: FunctionComponent<Props> = ({
     } else {
       createSku({ ...data, productId });
     }
-    setTimeout(() => onSubmit(), 100);
   };
 
   return (
@@ -72,7 +72,7 @@ export const SkuForm: FunctionComponent<Props> = ({
       <InputField
         type="number"
         label="Preço"
-        maxLength={6}
+        maxLength={9}
         placeholder="19.90"
         controllerProps={{
           control,

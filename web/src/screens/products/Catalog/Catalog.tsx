@@ -11,8 +11,6 @@ export const Catalog: FunctionComponent = () => {
   const { data, isLoading } = useProductsList();
   const [isFormOpen, setIsFormOpen] = useState(false);
 
-  console.log({ data, isLoading });
-
   const handleCreateProductClick = () => setIsFormOpen(true);
 
   const onCreatedProduct = (product: IProduct) => {

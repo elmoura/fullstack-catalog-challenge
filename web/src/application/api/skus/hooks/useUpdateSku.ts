@@ -6,7 +6,11 @@ import { useBaseMutation } from "@utils/hooks/useBaseMutation";
 
 const updateSkuUseCase = container.get(UpdateSkuUseCase);
 
-export const useUpdateSku = () => {
+type Params = {
+  onSuccess?: (sku: ISku) => void;
+};
+
+export const useUpdateSku = ({ onSuccess }: Params) => {
   const { data, error, isLoading, mutate, isSuccess } = useBaseMutation<
     ISku,
     Error,
@@ -15,6 +19,7 @@ export const useUpdateSku = () => {
     mutationFn: async (mutationData) => {
       return updateSkuUseCase.execute(mutationData);
     },
+    onSuccess,
   });
 
   return { data, error, isLoading, mutate, isSuccess };

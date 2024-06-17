@@ -2,7 +2,6 @@ import { Image } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
 import { FunctionComponent, useEffect, useState } from "react";
 import { Sidebar } from "@components/atoms/Sidebar";
-import { FALLBACK_PRODUCT_IMAGE_URL } from "@src/main";
 import { Divider } from "@components/atoms/Divider";
 import { DetailHeader } from "@components/atoms/DetailHeader/DetailHeader";
 import { DeleteButton } from "@components/atoms/DeleteButton";
@@ -14,6 +13,7 @@ import { useDeleteProduct } from "@application/api/products/hooks/useDeleteProdu
 import { Button } from "@components/atoms/Button";
 import { SkuList } from "@components/molecules/SkuList/SkuList";
 import { SkuForm } from "@components/organisms/SkuForm";
+import { FALLBACK_PRODUCT_IMAGE_URL } from "@components/molecules/ProductItem";
 
 export const ProductDetails: FunctionComponent = () => {
   const { productId = "" } = useParams();
@@ -23,7 +23,10 @@ export const ProductDetails: FunctionComponent = () => {
     productId,
   });
   const { data: skus, refetch: refetchSkus } = useFindSkus({ productId });
-  const { mutate: deleteProduct } = useDeleteProduct({ productId });
+  const { mutate: deleteProduct } = useDeleteProduct({
+    productId,
+    onSuccess: () => navigate(-1),
+  });
 
   const [isCreateSkuFormOpen, setIsCreateSkuFormOpen] = useState(false);
   const [isUpdateProductFormOpen, setIsUpdateProductFormOpen] = useState(false);
@@ -47,7 +50,6 @@ export const ProductDetails: FunctionComponent = () => {
 
   const handleDeleteProduct = () => {
     deleteProduct({ productId });
-    setTimeout(() => navigate(-1), 130);
   };
 
   return (

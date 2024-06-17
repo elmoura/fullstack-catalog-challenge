@@ -8,9 +8,6 @@ import { router } from "./routes";
 
 const queryClient = new QueryClient();
 
-export const FALLBACK_PRODUCT_IMAGE_URL =
-  "https://supermercadosrondon.com.br/guiadecarnes/images/postagens/quer_fazer_hamburger_artesanal_perfeito_2019-05-14.jpg";
-
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
