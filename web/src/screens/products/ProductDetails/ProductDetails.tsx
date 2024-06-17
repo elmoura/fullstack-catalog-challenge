@@ -24,7 +24,7 @@ export const ProductDetails: FunctionComponent = () => {
   });
   const { data: skus, refetch: refetchSkus } = useFindSkus({ productId });
   const { mutate: deleteProduct } = useDeleteProduct({ productId });
-  console.log({ product, skus });
+
   const [isCreateSkuFormOpen, setIsCreateSkuFormOpen] = useState(false);
   const [isUpdateProductFormOpen, setIsUpdateProductFormOpen] = useState(false);
 

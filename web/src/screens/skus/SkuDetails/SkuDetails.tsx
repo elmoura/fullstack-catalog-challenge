@@ -21,7 +21,6 @@ export const SkuDetails: FunctionComponent = () => {
   const [needsToRefetchSku, setNeedsToRefetchSku] = useState(false);
 
   useEffect(() => {
-    console.log({ needsToRefetchSku });
     if (needsToRefetchSku === true) {
       setNeedsToRefetchSku(false);
       refetchSku();
