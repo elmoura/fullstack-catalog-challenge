@@ -1,2 +1,3 @@
-import "@testing-library/jest-dom";
-import "reflect-metadata";
+/* eslint-disable no-undef */
+require("@testing-library/jest-dom");
+require("reflect-metadata");

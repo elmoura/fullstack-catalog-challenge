@@ -9,7 +9,7 @@ export interface Sku {
 
   description: string;
 
-  price: number;
+  price?: number;
 
   createdAt: Date;
 

@@ -7,7 +7,10 @@ type Props = {
 };
 const EmptyState = () => {
   return (
-    <div className="flex justify-center items-center h-full mt-10">
+    <div
+      className="flex justify-center items-center h-full mt-10"
+      data-testid="empty-state"
+    >
       <p className="text-center font-thin text-2xl text-gray-800">
         Ops! Você não tem produtos ainda :(
       </p>

@@ -1,8 +1,8 @@
-import "reflect-metadata";
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import { IProduct } from "@core/products/entities/Product";
 import { ProductItem } from "./ProductItem";
+import { MemoryRouter } from "react-router-dom";
 
 const mockProduct: IProduct = {
   _id: "mock-id",
@@ -15,13 +15,17 @@ const mockProduct: IProduct = {
 };
 
 describe("ProductItem", () => {
-  it("renders with passed data", async () => {
-    render(<ProductItem product={mockProduct} />);
+  it("renders with passed data", () => {
+    render(
+      <MemoryRouter>
+        <ProductItem product={mockProduct} />
+      </MemoryRouter>
+    );
 
-    const nameElement = screen.findByText(mockProduct.name);
-    const codeElement = screen.findByText(mockProduct._id);
-    const priceElement = screen.findByText(mockProduct._id);
-    const descriptionElement = screen.findByText(mockProduct._id);
+    const nameElement = screen.getByText(mockProduct.name);
+    const codeElement = screen.getByText(mockProduct._id);
+    const priceElement = screen.getByText(mockProduct._id);
+    const descriptionElement = screen.getByText(mockProduct._id);
 
     expect(nameElement).toBeInTheDocument();
     expect(codeElement).toBeInTheDocument();

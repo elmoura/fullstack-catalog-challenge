@@ -5,6 +5,8 @@ const tsConfig = require("./tsconfig.json");
 
 /** @type {import('jest').Config} */
 module.exports = {
+  verbose: true,
+  preset: "ts-jest",
   roots: ["<rootDir>"],
   modulePaths: ["<rootDir>"],
   testEnvironment: "jest-environment-jsdom",

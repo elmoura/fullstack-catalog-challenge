@@ -11,7 +11,7 @@ export class UpdateSkuInput implements Partial<Sku> {
 
   @IsString()
   @IsOptional()
-  identifier: string;
+  identifier?: string;
 
   @IsString()
   @IsOptional()
@@ -19,5 +19,5 @@ export class UpdateSkuInput implements Partial<Sku> {
 
   @IsOptional()
   @IsNumber({ maxDecimalPlaces: 2 })
-  price: number;
+  price?: number;
 }

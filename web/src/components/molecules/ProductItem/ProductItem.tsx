@@ -2,11 +2,13 @@ import { IProduct } from "@core/products/entities/Product";
 import { FunctionComponent } from "react";
 import { Image } from "antd";
 import { Link } from "react-router-dom";
-import { FALLBACK_PRODUCT_IMAGE_URL } from "@src/main";
 
 type Props = {
   product: IProduct;
 };
+
+export const FALLBACK_PRODUCT_IMAGE_URL =
+  "https://supermercadosrondon.com.br/guiadecarnes/images/postagens/quer_fazer_hamburger_artesanal_perfeito_2019-05-14.jpg";
 
 export const ProductItem: FunctionComponent<Props> = ({ product }) => {
   return (

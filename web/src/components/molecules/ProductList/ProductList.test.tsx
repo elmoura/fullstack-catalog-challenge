@@ -1,8 +1,8 @@
-import "reflect-metadata";
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import { IProduct } from "@core/products/entities/Product";
 import { ProductList } from "./ProductList";
+import { MemoryRouter } from "react-router-dom";
 
 const mockProductList: IProduct[] = [
   {
@@ -17,13 +17,17 @@ const mockProductList: IProduct[] = [
 ];
 
 describe("ProductItem", () => {
-  it("renders with passed data", async () => {
-    render(<ProductList products={mockProductList} />);
+  it("renders with passed data", () => {
+    render(
+      <MemoryRouter>
+        <ProductList products={mockProductList} />
+      </MemoryRouter>
+    );
 
-    const nameElement = screen.findByText(mockProductList[0].name);
-    const codeElement = screen.findByText(mockProductList[0]._id);
-    const priceElement = screen.findByText(mockProductList[0]._id);
-    const descriptionElement = screen.findByText(mockProductList[0]._id);
+    const nameElement = screen.getByText(mockProductList[0].name);
+    const codeElement = screen.getByText(mockProductList[0]._id);
+    const priceElement = screen.getByText(mockProductList[0]._id);
+    const descriptionElement = screen.getByText(mockProductList[0]._id);
 
     expect(nameElement).toBeInTheDocument();
     expect(codeElement).toBeInTheDocument();
@@ -31,17 +35,25 @@ describe("ProductItem", () => {
     expect(descriptionElement).toBeInTheDocument();
   });
 
-  it("renders empty state when the product array is empty", async () => {
-    render(<ProductList products={[]} />);
+  it("renders empty state when the product array is empty", () => {
+    render(
+      <MemoryRouter>
+        <ProductList products={[]} />
+      </MemoryRouter>
+    );
 
-    const nameElement = screen.findByText(mockProductList[0].name);
-    const codeElement = screen.findByText(mockProductList[0]._id);
-    const priceElement = screen.findByText(mockProductList[0]._id);
-    const descriptionElement = screen.findByText(mockProductList[0]._id);
+    const nameElement = screen.queryByText(mockProductList[0].name);
+    const codeElement = screen.queryByText(mockProductList[0]._id);
+    const priceElement = screen.queryByText(mockProductList[0]._id);
+    const descriptionElement = screen.queryByText(mockProductList[0]._id);
 
     expect(nameElement).not.toBeInTheDocument();
     expect(codeElement).not.toBeInTheDocument();
     expect(priceElement).not.toBeInTheDocument();
     expect(descriptionElement).not.toBeInTheDocument();
+
+    const emptyStateElement = screen.getByTestId("empty-state");
+
+    expect(emptyStateElement).toBeVisible();
   });
 });
